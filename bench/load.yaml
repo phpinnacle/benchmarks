@@ -1,0 +1,19 @@
+phantom:
+    address: $SERVER:$PORT
+    uris:
+        - /
+    load_profile:
+        load_type: rps
+        schedule: line(1, 1000, 600s)
+console:
+    enabled: true
+telegraf:
+    config: 'monitoring.xml'
+    enabled: true
+    kill_old: false
+    package: yandextank.plugins.Telegraf
+    ssh_timeout: 30s
+overload:
+    enabled: true
+    package: yandextank.plugins.DataUploader
+    token_file: 'overload_token.txt'

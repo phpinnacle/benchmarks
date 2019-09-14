@@ -1,0 +1,11 @@
+{
+    "require": {
+        "league/route": "^4.3",
+        "spiral/roadrunner": "^1.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}
