@@ -1,0 +1,8 @@
+logs/
+jobno_file.txt
+token.txt
+load.yaml
+monitoring.xml
+*.cfg
+*.log
+

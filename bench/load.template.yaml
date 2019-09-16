@@ -1,10 +1,10 @@
 phantom:
-    address: $SERVER:$PORT
+    address: %SERVER%
     uris:
         - /
     load_profile:
         load_type: rps
-        schedule: line(1, 1000, 600s)
+        schedule: %RPS%
 console:
     enabled: true
 telegraf:
@@ -16,4 +16,4 @@ telegraf:
 overload:
     enabled: true
     package: yandextank.plugins.DataUploader
-    token_file: 'overload_token.txt'
+    token_file: 'token.txt'

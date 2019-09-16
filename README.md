@@ -9,26 +9,35 @@ Based on configs from [mrsuh/php-load-test](https://github.com/mrsuh/php-load-te
 
 ### Application
 
-* PHP 7.3
+* PHP 7.3.9
+* MySQL 8.0.12
 
 ## Installation
 
-### AMPHP
-```sh
-cd platform/amphp && docker-compose up
-```
-
-### FPM
+#### FPM
 ```sh
 cd platform/fpm && docker-compose up
 ```
 
-### RoadRunner
+#### RoadRunner
 ```sh
 cd platform/roadrunner && docker-compose up
 ```
 
-### RoadRunner
+#### AMPHP
+```sh
+cd platform/amphp && docker-compose up
+```
+
+#### Swoole
 ```sh
 cd platform/swoole && docker-compose up
+```
+
+## Benchmarks
++ Update `bench/.env` with your username and token from [Overload](https://overload.yandex.net)
++ Put **ssh** public key to target server if needed
++ Tank it:
+```sh
+make rps1000
 ```
