@@ -3,29 +3,31 @@
 use App\Controller;
 use App\Repository;
 use League\Route\Router;
+use League\Route\Strategy\JsonStrategy;
 use Spiral\Goridge\StreamRelay;
 use Spiral\RoadRunner\Worker;
 use Spiral\RoadRunner\PSR7Client;
+use Zend\Diactoros\ResponseFactory;
 
 ini_set('display_errors', 'stderr');
 
 require __DIR__ . '/vendor/autoload.php';
 
-$relay = new StreamRelay(\STDIN, \STDOUT);
-$psr7 = new PSR7Client(new Worker($relay));
+$relay  = new StreamRelay(\STDIN, \STDOUT);
+$worker = new Worker($relay);
+$client = new PSR7Client($worker);
 
-$router = new Router();
-$router->setStrategy($strategy);
+$controller = new Controller(new Repository(\getenv('DATABASE')));
+$strategy = new JsonStrategy(new ResponseFactory());
 
-$repository = new Repository(\getenv('DATABASE'));
-$controller = new Controller($repository);
+while ($request = $client->acceptRequest()) {
+    $router = new Router();
+    $router->setStrategy($strategy);
+    $router->map('GET', '/', $controller);
 
-$router->map('GET', '/', $controller);
-
-while ($req = $psr7->acceptRequest()) {
     try {
-        $psr7->respond($router->dispatch($request));
+        $client->respond($router->dispatch($request));
     } catch (\Throwable $e) {
-        $psr7->getWorker()->error((string)$e);
+        $worker->error((string)$e);
     }
 }

@@ -1,5 +1,5 @@
 <Monitoring>
-  <Host address="localhost" interval="1" username="you-overload-user">
+  <Host address="localhost" interval="1" username="zloyuser">
     <CPU/> <Kernel/> <Net/> <System/> <Memory/> <Disk/> <Netstat /> <Nstat/>
   </Host>
 </Monitoring>

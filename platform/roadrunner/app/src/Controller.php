@@ -1,19 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App;
 
 use Psr\Http\Message\RequestInterface;
 
 class Controller
 {
+    /**
+     * @var Repository
+     */
     private $repository;
-    
+
+    /**
+     * @param Repository $repository
+     */
     public function __construct(Repository $repository)
     {
         $this->repository = $repository;
     }
-    
-    public function __invoke(RequestInterface $request)
+
+    /**
+     * @param RequestInterface $request
+     *
+     * @return array
+     */
+    public function __invoke(RequestInterface $request): array
     {
         \parse_str($request->getUri()->getQuery(), $query);
 

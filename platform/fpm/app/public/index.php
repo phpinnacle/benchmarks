@@ -17,15 +17,11 @@ $request = Zend\Diactoros\ServerRequestFactory::fromGlobals(
 
 $emitter = new SapiEmitter();
 
-$factory = new ResponseFactory();
-$strategy = new JsonStrategy($factory);
+$controller = new Controller(new Repository(\getenv('DATABASE')));
+$strategy = new JsonStrategy(new ResponseFactory());
 
 $router = new Router();
 $router->setStrategy($strategy);
-
-$repository = new Repository(\getenv('DATABASE'));
-$controller = new Controller($repository);
-
 $router->map('GET', '/', $controller);
 
 $response = $router->dispatch($request);
