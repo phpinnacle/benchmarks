@@ -30,7 +30,7 @@ class Controller
     {
         \parse_str($request->getUri()->getQuery(), $query);
 
-        $items = $this->repository->paginate($query['page'] ?? 1, $query['limit'] ?? 30);
+        $items = $this->repository->paginate($query['page'] ?? \random_int(1, 199), $query['limit'] ?? 50);
         
         return \array_map(function (array $item) {
             return [

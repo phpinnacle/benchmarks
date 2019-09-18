@@ -2,7 +2,7 @@
 
 use App\Controller;
 use App\Repository;
-use Spiral\Goridge\StreamRelay;
+use Spiral\Goridge\Relay;
 use Spiral\RoadRunner\Worker;
 use Spiral\RoadRunner\PSR7Client;
 use Zend\Diactoros\ResponseFactory;
@@ -11,14 +11,14 @@ ini_set('display_errors', 'stderr');
 
 require __DIR__ . '/vendor/autoload.php';
 
-$relay  = new StreamRelay(\STDIN, \STDOUT);
+$relay = Relay::pipes();
 $worker = new Worker($relay);
 $client = new PSR7Client($worker);
 
 $controller = new Controller(new Repository(\getenv('DATABASE')));
 $factory = new ResponseFactory();
 
-while ($request = $client->acceptRequest()) {
+while ($request = $client->accept()) {
     try {
         $result = $controller($request);
 
@@ -28,6 +28,6 @@ while ($request = $client->acceptRequest()) {
 
         $client->respond($response);
     } catch (\Throwable $e) {
-        $worker->error((string) $e);
+        $client->error($e);
     }
 }

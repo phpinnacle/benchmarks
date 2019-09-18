@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App;
 
-use Psr\Http\Message\RequestInterface;
+use Swoole\Http\Request;
+use Swoole\Http\Response;
 
 class Controller
 {
@@ -22,21 +23,20 @@ class Controller
     }
 
     /**
-     * @param RequestInterface $request
-     *
-     * @return array
+     * @param Request  $request
+     * @param Response $response
      */
-    public function __invoke(RequestInterface $request): array
+    public function __invoke(Request $request, Response $response)
     {
-        \parse_str($request->getUri()->getQuery(), $query);
-
-        $items = $this->repository->paginate($query['page'] ?? \random_int(1, 199), $query['limit'] ?? 50);
-
-        return \array_map(function (array $item) {
+        $items = $this->repository->paginate(\random_int(1, 199), 50);
+        $items = \array_map(function (array $item) {
             return [
                 'id' => (int) $item['id'],
                 'name' => \sprintf('%s %s', $item['first_name'], $item['last_name']),
             ];
         }, $items);
+
+        $response->header('Content-Type', 'application/json');
+        $response->end(\json_encode($items));
     }
 }

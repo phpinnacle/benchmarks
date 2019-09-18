@@ -61,7 +61,7 @@ class Repository
         $page = $page > 1 ? $page : 1;
         $offset = ($page - 1) * $limit;
 
-        $stmt = $this->pdo->prepare('SELECT * FROM users WHERE status = 1 LIMIT :limit OFFSET :offset;');
+        $stmt = $this->pdo->prepare('SELECT * FROM users LIMIT :limit OFFSET :offset;');
 
         $stmt->bindParam(':limit', $limit, \PDO::PARAM_INT);
         $stmt->bindParam(':offset', $offset, \PDO::PARAM_INT);

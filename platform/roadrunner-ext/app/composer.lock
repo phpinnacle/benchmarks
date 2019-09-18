@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c0f3f0fb4072e89f8850637670355c91",
+    "content-hash": "0ea43a0a3641a6dc72aac34220ac3e98",
     "packages": [
         {
             "name": "psr/container",
@@ -159,31 +159,42 @@
         },
         {
             "name": "spiral/goridge",
-            "version": "v2.1.4",
+            "version": "dev-refactor",
             "source": {
                 "type": "git",
-                "url": "https://github.com/spiral/goridge.git",
-                "reference": "4d5c763886dd0a1e45b1a7d1f99d180cf1a7a7c4"
+                "url": "https://github.com/zloyuser/goridge.git",
+                "reference": "925f59404c8d9d02a7543838ba169a19a4a5ccb9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spiral/goridge/zipball/4d5c763886dd0a1e45b1a7d1f99d180cf1a7a7c4",
-                "reference": "4d5c763886dd0a1e45b1a7d1f99d180cf1a7a7c4",
+                "url": "https://api.github.com/repos/zloyuser/goridge/zipball/925f59404c8d9d02a7543838ba169a19a4a5ccb9",
+                "reference": "925f59404c8d9d02a7543838ba169a19a4a5ccb9",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0"
+                "ext-json": "*",
+                "php": "^7.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "~6.0"
+                "phpunit/phpunit": "^7.5"
+            },
+            "suggest": {
+                "ext-goridge": "Speed up performance for GoRidge RPC and RoadRunner"
             },
             "type": "goridge",
             "autoload": {
                 "psr-4": {
-                    "Spiral\\Goridge\\": "php-src/"
+                    "Spiral\\Goridge\\": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Spiral\\Goridge\\Tests\\": "tests/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -194,27 +205,31 @@
                 }
             ],
             "description": "High-performance PHP-to-Golang RPC bridge",
-            "time": "2019-04-01T14:30:26+00:00"
+            "support": {
+                "source": "https://github.com/zloyuser/goridge/tree/refactor"
+            },
+            "time": "2019-09-19T09:55:01+00:00"
         },
         {
             "name": "spiral/roadrunner",
-            "version": "v1.4.8",
+            "version": "dev-refactor",
             "source": {
                 "type": "git",
-                "url": "https://github.com/spiral/roadrunner.git",
-                "reference": "dcd03789d7f8e1dd31ddf63e6ee66aebf89b1605"
+                "url": "https://github.com/zloyuser/roadrunner.git",
+                "reference": "d53474715c8dec71c710623282ec5cebe6bb96fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spiral/roadrunner/zipball/dcd03789d7f8e1dd31ddf63e6ee66aebf89b1605",
-                "reference": "dcd03789d7f8e1dd31ddf63e6ee66aebf89b1605",
+                "url": "https://api.github.com/repos/zloyuser/roadrunner/zipball/d53474715c8dec71c710623282ec5cebe6bb96fa",
+                "reference": "d53474715c8dec71c710623282ec5cebe6bb96fa",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.0",
+                "ext-json": "*",
+                "php": "^7.1",
                 "psr/http-factory": "^1.0",
                 "psr/http-message": "^1.0",
-                "spiral/goridge": "^2.0",
+                "spiral/goridge": "dev-refactor",
                 "symfony/console": "^2.5.0 || ^3.0.0 || ^4.0.0",
                 "zendframework/zend-diactoros": "^1.3 || ^2.0"
             },
@@ -227,7 +242,6 @@
                     "Spiral\\RoadRunner\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -242,7 +256,10 @@
                 }
             ],
             "description": "High-performance PHP application server, load-balancer and process manager written in Golang",
-            "time": "2019-09-06T11:02:08+00:00"
+            "support": {
+                "source": "https://github.com/zloyuser/roadrunner/tree/refactor"
+            },
+            "time": "2019-09-19T07:37:55+00:00"
         },
         {
             "name": "symfony/console",
@@ -564,7 +581,10 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "spiral/goridge": 20,
+        "spiral/roadrunner": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
